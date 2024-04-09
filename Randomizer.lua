@@ -43,6 +43,7 @@ local AimbotToggle = Tab:CreateToggle({
       if Value then
         Aimbot.Enabled = true -- is aimbot enabled
         Aimbot.Key = Enum.UserInputType.MouseButton2 -- aimbot key
+        Aimbot.VisibilityCheck = true
 
         Aimbot.Players = true -- is aimbot for default player characters enabled
 

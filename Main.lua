@@ -1,3 +1,21 @@
+ocal GameMt = getrawmetatable(game)
+local OldNameCall = GameMt.__namecall
+
+setreadonly(GameMt, false)
+
+GameMt.__namecall = newcclosure(function(Self, ...)
+    local Args = {...}
+    local NamecallMethod = getnamecallmethod()
+
+    if not checkcaller() and NamecallMethod  == "Kick" then
+        return nil
+    end
+
+    return OldNameCall(Self, ...)
+end)
+
+setreadonly(GameMt, true)
+
 -- GameId
 local GameId = game.PlaceId
 

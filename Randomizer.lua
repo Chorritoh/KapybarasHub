@@ -105,3 +105,5 @@ local AimPlayerPart = Tab:CreateDropdown({
         Aimbot.PlayerPart = Option -- part of default player character to aim
    end,
 })
+
+local EspSection = Tab:CreateSection("Esp",false)

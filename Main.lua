@@ -1,4 +1,3 @@
-
 -- GameId
 local GameId = game.PlaceId
 

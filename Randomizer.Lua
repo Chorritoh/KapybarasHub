@@ -35,7 +35,7 @@ local Window = ArrayField:CreateWindow({
 local Tab = Window:CreateTab("General", 4483362458)
 local AimbotSection = Tab:CreateSection("Aimbot",false)
 local AimbotToggle = Tab:CreateToggle({
-   SectionParent = AimbotSection -- Section it's parented to
+   SectionParent = AimbotSection, -- Section it's parented to
    Name = "Aimbot",
    CurrentValue = false,
    Flag = "Aimbot",
@@ -55,7 +55,7 @@ local AimbotToggle = Tab:CreateToggle({
    end,
 })
 local AimbotSmooth = Tab:CreateSlider({
-   SectionParent = AimbotSection -- Section it's parented to
+   SectionParent = AimbotSection, -- Section it's parented to
    Name = "Smooth",
    Range = {0, 1},
    Increment = 0.01,
@@ -67,7 +67,7 @@ local AimbotSmooth = Tab:CreateSlider({
    end,
 })
 local AimbotTeam = Tab:CreateToggle({
-   SectionParent = AimbotSection -- Section it's parented to
+   SectionParent = AimbotSection, -- Section it's parented to
    Name = "Teamcheck",
    CurrentValue = false,
    Flag = "AimTeamCheck",
@@ -80,7 +80,7 @@ local AimbotTeam = Tab:CreateToggle({
    end,
 })
 local AimbotAlive = Tab:CreateToggle({
-   SectionParent = AimbotSection -- Section it's parented to
+   SectionParent = AimbotSection, -- Section it's parented to
    Name = "AliveCheck",
    CurrentValue = false,
    Flag = "AimAliveCheck",
@@ -93,7 +93,7 @@ local AimbotAlive = Tab:CreateToggle({
    end,
 })
 local AimPlayerPart = Tab:CreateDropdown({
-   SectionParent = AimbotSection -- Section it's parented to
+   SectionParent = AimbotSection, -- Section it's parented to
    Name = "Player Part",
    Options = {"Head","Torso","LeftArm","RightArm","LeftLeg","RightLeg"},
    CurrentOption = "Head",

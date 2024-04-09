@@ -1,4 +1,4 @@
-ocal GameMt = getrawmetatable(game)
+local GameMt = getrawmetatable(game)
 local OldNameCall = GameMt.__namecall
 
 setreadonly(GameMt, false)

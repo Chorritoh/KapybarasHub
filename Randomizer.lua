@@ -106,7 +106,6 @@ local AimPlayerPart = Tab:CreateDropdown({
 })
 
 local EspSection = Tab:CreateSection("Esp",false)
-local EspMode = "Highlight"
 
 local Proxy -- Definimos Proxy aquí para que sea accesible en ambos Callbacks
 
@@ -119,8 +118,7 @@ local EspEnabled = Tab:CreateToggle({
       if Value then
         for i, player in pairs(game:GetService("Players"):GetPlayers()) do
             if player.Character then
-                print(EspMode)
-                Proxy = ESP:AddCharacter(player.Character, EspMode); -- Usamos EspMode aquí
+                Proxy = ESP:AddCharacter(player.Character, "BoundingBox"); -- Usamos EspMode aquí
             end
         end
       else
@@ -131,22 +129,10 @@ local EspEnabled = Tab:CreateToggle({
    end,
 })
 
-local EspModes = Tab:CreateDropdown({
-   SectionParent = EspSection, -- Section it's parented to
-   Name = "ESP Mode",
-   Options = {"BoundingBox", "Highlight"},
-   CurrentOption = "Highlight",
-   MultiSelection = false, -- If MultiSelections is allowed
-   Flag = "EspMode", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-   Callback = function(Option)
-        EspMode = Option -- Actualizamos EspMode aquí
-   end,
-})
-
 game:GetService("Players").PlayerAdded:Connect(function(player)
     player.CharacterAdded:Connect(function(character)
         if EspEnabled.CurrentValue and player ~= game:GetService("Players").LocalPlayer then
-            Proxy = ESP:AddCharacter(character, EspMode.CurrentOption)
+            Proxy = ESP:AddCharacter(character, "BoundingBox")
         end
     end)
 end)

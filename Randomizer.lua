@@ -133,6 +133,13 @@ game:GetService("Players").PlayerAdded:Connect(function(player)
     player.CharacterAdded:Connect(function(character)
         if EspEnabled.CurrentValue and player ~= game:GetService("Players").LocalPlayer then
             Proxy = ESP:AddCharacter(character, "BoundingBox")
+            print("ESP añadido a: " .. player.Name)
+        end
+    end)
+    player.CharacterRemoving:Connect(function(character)
+        if Proxy then
+            Proxy:Destroy()
+            print("ESP eliminado de: " .. player.Name)
         end
     end)
 end)

@@ -50,7 +50,7 @@ local AimbotToggle = Tab:CreateToggle({
 
         Aimbot.FOV = 200 -- aimbot fov
         Aimbot.FOVCircleColor = Color3.fromRGB(255, 255, 255) -- color of fov circle
-        Aimbot.ShowFOV = false -- is fov circle visible
+        Aimbot.ShowFOV = true -- is fov circle visible
       else
 
       end
@@ -107,3 +107,45 @@ local AimPlayerPart = Tab:CreateDropdown({
 })
 
 local EspSection = Tab:CreateSection("Esp",false)
+
+local Proxy -- Definimos Proxy aquí para que sea accesible en ambos Callbacks
+
+local EspEnabled = Tab:CreateToggle({
+   SectionParent = EspSection, -- Section it's parented to
+   Name = "Enabled",
+   CurrentValue = false,
+   Flag = "EspEnabled",
+   Callback = function(Value)
+      if Value then
+        for i, player in pairs(game:GetService("Players"):GetPlayers()) do
+            if player.Character then
+                Proxy = ESP:AddCharacter(player.Character, EspMode.CurrentOption); -- Usamos EspMode aquí
+            end
+        end
+      else
+        if Proxy then
+            Proxy:Destroy()
+        end
+      end
+   end,
+})
+
+local EspMode = Tab:CreateDropdown({
+   SectionParent = EspSection, -- Section it's parented to
+   Name = "ESP Mode",
+   Options = {"BoundingBox", "Highlight"},
+   CurrentOption = "BoundingBox",
+   MultiSelection = false, -- If MultiSelections is allowed
+   Flag = "EspMode", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Option)
+        EspMode = Option -- Actualizamos EspMode aquí
+   end,
+})
+
+game:GetService("Players").PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function(character)
+        if EspEnabled.CurrentValue and player ~= game:GetService("Players").LocalPlayer then
+            Proxy = ESP:AddCharacter(character, EspMode.CurrentOption)
+        end
+    end)
+end)

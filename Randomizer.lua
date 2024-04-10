@@ -131,9 +131,8 @@ local EspEnabled = Tab:CreateToggle({
 
 game.Players.PlayerAdded:Connect(function(player)
     player.CharacterAppearanceLoaded:Connect(function(character)
-            if EspEnabled.CurrentValue and player ~= game:GetService("Players").LocalPlayer then
-               Proxy = ESP:AddCharacter(character, "BoundingBox")
-            end
-         end)
+         if EspEnabled.CurrentValue and player ~= game:GetService("Players").LocalPlayer then
+             Proxy = ESP:AddCharacter(character, "BoundingBox")
+         end
     end)
 end)

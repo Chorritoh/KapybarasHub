@@ -117,7 +117,7 @@ local EspEnabled = Tab:CreateToggle({
    Callback = function(Value)
       if Value then
         for i, player in pairs(game:GetService("Players"):GetPlayers()) do
-            if player.Character then
+            if player.Character and player ~= game:GetService("Players").LocalPlayer then
                 Proxy = ESP:AddCharacter(player.Character, "BoundingBox"); -- Usamos EspMode aquí
             end
         end
@@ -129,17 +129,11 @@ local EspEnabled = Tab:CreateToggle({
    end,
 })
 
-game:GetService("Players").PlayerAdded:Connect(function(player)
-    player.CharacterAdded:Connect(function(character)
-        if EspEnabled.CurrentValue and player ~= game:GetService("Players").LocalPlayer then
-            Proxy = ESP:AddCharacter(character, "BoundingBox")
-            print("ESP añadido a: " .. player.Name)
-        end
-    end)
-    player.CharacterRemoving:Connect(function(character)
-        if Proxy then
-            Proxy:Destroy()
-            print("ESP eliminado de: " .. player.Name)
-        end
+game.Players.PlayerAdded:Connect(function(player)
+    player.CharacterAppearanceLoaded:Connect(function(character)
+            if EspEnabled.CurrentValue and player ~= game:GetService("Players").LocalPlayer then
+               Proxy = ESP:AddCharacter(character, "BoundingBox")
+            end
+         end)
     end)
 end)

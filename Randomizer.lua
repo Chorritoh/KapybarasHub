@@ -44,7 +44,6 @@ local AimbotToggle = Tab:CreateToggle({
       if Value then
         Aimbot.Enabled = true -- is aimbot enabled
         Aimbot.Key = Enum.UserInputType.MouseButton2 -- aimbot key
-        Aimbot.VisibilityCheck = true
 
         Aimbot.Players = true -- is aimbot for default player characters enabled
 
@@ -107,6 +106,7 @@ local AimPlayerPart = Tab:CreateDropdown({
 })
 
 local EspSection = Tab:CreateSection("Esp",false)
+local EspMode = "Highlight"
 
 local Proxy -- Definimos Proxy aquí para que sea accesible en ambos Callbacks
 
@@ -119,7 +119,8 @@ local EspEnabled = Tab:CreateToggle({
       if Value then
         for i, player in pairs(game:GetService("Players"):GetPlayers()) do
             if player.Character then
-                Proxy = ESP:AddCharacter(player.Character, EspMode.CurrentOption); -- Usamos EspMode aquí
+                print(EspMode)
+                Proxy = ESP:AddCharacter(player.Character, EspMode); -- Usamos EspMode aquí
             end
         end
       else
@@ -130,11 +131,11 @@ local EspEnabled = Tab:CreateToggle({
    end,
 })
 
-local EspMode = Tab:CreateDropdown({
+local EspModes = Tab:CreateDropdown({
    SectionParent = EspSection, -- Section it's parented to
    Name = "ESP Mode",
    Options = {"BoundingBox", "Highlight"},
-   CurrentOption = "BoundingBox",
+   CurrentOption = "Highlight",
    MultiSelection = false, -- If MultiSelections is allowed
    Flag = "EspMode", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Option)
